@@ -1,7 +1,8 @@
 import React from 'react'
+import {Route} from 'react-router-dom'
 
 export default function Form(props) {
-    const { values, change, submit, disabled, errors } = props
+    const { values, change, submit, disabled, errors, pizzaOrder } = props
    
     const onchange = (evt) => {
         const { name, value, type, checked} = evt.target;
@@ -14,6 +15,7 @@ export default function Form(props) {
         submit();
     }
 
+    
     
     return (
         <div>
@@ -102,9 +104,22 @@ export default function Form(props) {
                     <div>{errors.size}</div>
                     <div>{errors.sauce}</div>
                 </div>
-                <button disabled={disabled}> Add to Order     $17.99</button>
+                <button disabled={disabled} onClick={<Route path='/pizza/confirmation'/>}> Add to Order     $17.99</button>
 
             </form>
+            {
+                pizzaOrder.map(order =>{
+                    return( 
+                    <div>
+                        <h1>{order.instructions}</h1>
+                        <h1>{order.size}</h1>
+                        <h1>{order.sauce}</h1>
+                        <h1>{order.toppings}</h1>
+                    </div>
+                    )
+                })
+            }
+
         </div>
     )
 }

@@ -35,7 +35,7 @@ const initPizzaValue=[];
 const initDisabled= true;
 
 const App = () => {
-  const [pizza, setPizza]=(initPizzaValue)
+  const [pizza, setPizza]=useState(initPizzaValue)
   const [formValues, setFormValues] = useState(initFormValues)
   const [disabled, setDisabled] = useState(initDisabled)
   const [formErrors, setFormErrors]= useState(initFormErrors)
@@ -46,7 +46,7 @@ const postNewPizza = (newPizza) =>{
   axios.post('https://reqres.in/api/users', newPizza)
   .then((resp)=>{
     setPizza([resp.data, ...pizza]);
-    setFormValues(initFormValues);
+        setFormValues(initFormValues);
   })
   .catch((err)=>{
     console.log(err, "Pizza Error")
@@ -63,7 +63,7 @@ const inputChange = (name, value) => {
   })
   //if the form is not filled out properly, errors are the respective error msg
   .catch((err)=>{
-    setFormErrors({...formErrors, [name]:err.errors[0]})
+    setFormErrors({...formErrors, [name]: err.errors[0]})
   })
 
   setFormValues({...formValues, [name]:value})
@@ -71,8 +71,8 @@ const inputChange = (name, value) => {
   
 const submitForm = () =>{
   const newPizza={
-    size: formValues.size.trim(), 
-    sauce: formValues.sauce.trim(),
+    size: formValues.size, 
+    sauce: formValues.sauce,
     toppings:['pepperoni', 'sausage', 'caBacon', 'spicySausage'].filter(topping => formValues[topping]),
     instructions: formValues.instructions.trim(),
   }
@@ -99,10 +99,10 @@ const submitForm = () =>{
           <Confirmation pizzaOrder={pizza}/>  
         </Route>
         <Route path="/pizza" >
-          <Form values={formValues} change={inputChange} submit={submitForm} disabled={disabled} errors={formErrors}/>
+          <Form values={formValues} change={inputChange} submit={submitForm} disabled={disabled} errors={formErrors} pizzaOrder={pizza}/>
         </Route>
         <Route path="/">
-          <HomePage/>
+          <HomePage />
         </Route>
       </Switch>
 
