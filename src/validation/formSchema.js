@@ -1,7 +1,10 @@
 import * as yup from 'yup'
 
 export default yup.object().shape({
-
+ordername: yup
+.string()
+.required('Your name is required to order')
+.min(3, 'Please enter at least 3 characters for your name'),
    
 //DropDown Size
 size: yup

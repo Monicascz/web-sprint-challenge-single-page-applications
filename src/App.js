@@ -8,6 +8,8 @@ import schema from './validation/formSchema'
 import axios from 'axios'
 
 const initFormValues={
+  //Name Input Text
+  ordername:'',
   //DropDown Size
   size: '', 
   //Radio Button Sauce
@@ -22,7 +24,8 @@ const initFormValues={
     }
 
 const initFormErrors = {
-    size: '', 
+  ordername:'',  
+  size: '', 
     sauce: '',
     pepperoni: false,
     sausage: false,
@@ -63,7 +66,8 @@ const inputChange = (name, value) => {
   })
   //if the form is not filled out properly, errors are the respective error msg
   .catch((err)=>{
-    setFormErrors({...formErrors, [name]: err.errors[0]})
+    setFormErrors({...formErrors, [name]: err.errors[0]
+    })
   })
 
   setFormValues({...formValues, [name]:value})
@@ -71,6 +75,7 @@ const inputChange = (name, value) => {
   
 const submitForm = () =>{
   const newPizza={
+    ordername:formValues.ordername.trim(),
     size: formValues.size, 
     sauce: formValues.sauce,
     toppings:['pepperoni', 'sausage', 'caBacon', 'spicySausage'].filter(topping => formValues[topping]),

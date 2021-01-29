@@ -25,6 +25,13 @@ export default function Form(props) {
             <p>----------------------------------</p>
             <h3> Build Your Own Pizza</h3>
             <form onSubmit={onSubmit}>
+                <div>
+                    <h4>Name for Your Order</h4>
+                </div>
+                <label>
+                    <input name="ordername" type='text' value={values.name} onChange={onchange} placeholder="Your Name"></input>
+                </label>
+                <p>----------------------------------</p>
                 {/* //////// SIZE DROPDOWN /////////// */}
                 <div>
                     <h4>Choice of Size</h4>
@@ -101,6 +108,7 @@ export default function Form(props) {
                 <p>----------------------------------</p>
                 <br></br>
                 <div className ="errors">
+                    <div>{errors.name}</div>
                     <div>{errors.size}</div>
                     <div>{errors.sauce}</div>
                 </div>
@@ -111,10 +119,11 @@ export default function Form(props) {
                 pizzaOrder.map(order =>{
                     return( 
                     <div>
-                        <h1>{order.instructions}</h1>
-                        <h1>{order.size}</h1>
-                        <h1>{order.sauce}</h1>
-                        <h1>{order.toppings}</h1>
+                        <h1>Name: {order.ordername}</h1>
+                        <h1>Size: {order.size}</h1>
+                        <h1>Toppings: {order.toppings}</h1>
+                        <h1>Special Instructions: {order.instructions}</h1>
+                        
                     </div>
                     )
                 })
