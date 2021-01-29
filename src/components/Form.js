@@ -1,6 +1,13 @@
 import React from 'react'
 
-export default function Form() {
+export default function Form(props) {
+    const { values, change } = props
+    const onchange = (evt) => {
+        const { name, value} = evt.target;
+        change(name, value);
+
+    }
+    
     return (
         <div>
             <h1>Cowabunga! </h1>
@@ -9,8 +16,14 @@ export default function Form() {
             <h4> Build Your Own Pizza</h4>
             <form>
                 <label>
-                    Select Your Pizza Size
-                    <select name="size" ></select>
+                    Choice of Size (required)
+                    <br></br>
+                    <select name="size" value={values.size} onChange={onchange}>
+                        <option value=''>Select Your Pizza Size</option>
+                        <option value='small'>Small</option>
+                        <option value='med'>Medium</option>
+                        <option value='large'>Large</option>
+                    </select>
                 </label>
             </form>
         </div>

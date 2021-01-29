@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Route, Switch } from 'react-router-dom'
 import Form from './components/Form'
 import HomePage from './components/HomePage'
@@ -19,8 +19,11 @@ const initFormValues={
     }
 
 const App = () => {
-  
+  const [formValues, setFormValues] = useState(initFormValues)
 
+  const inputChange = (name, value) => {
+    setFormValues({...formValues, [name]:value})
+  }
   
   
   return (
@@ -36,8 +39,8 @@ const App = () => {
         <Route path="/pizza/confirmation">
           <Confirmation/>  
         </Route>
-        <Route path="/pizza">
-          <Form />
+        <Route path="/pizza" >
+          <Form values={formValues} change={inputChange}/>
         </Route>
         <Route path="/">
           <HomePage/>
