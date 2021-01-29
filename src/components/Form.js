@@ -1,24 +1,35 @@
 import React from 'react'
 
 export default function Form(props) {
-    const { values, change } = props
-    console.log("sauce1 ", values.sauce)
+    const { values, change, submit, disabled } = props
+   
     const onchange = (evt) => {
-        const { name, value} = evt.target;
-        change(name, value);
-        
+        const { name, value, type, checked} = evt.target;
+        const valueToUse= type === 'checkbox' ? checked : value;
+        change(name, valueToUse);    
     }
+
+    const onSubmit=(evt)=>{
+        evt.preventDefault();
+        submit();
+    }
+
     
     return (
         <div>
             <h1>Cowabunga! </h1>
             <h2> Build Your Pizza</h2>
             <p> [Insert Image Here]</p>
-            <h4> Build Your Own Pizza</h4>
-            <form>
+            <p>----------------------------------</p>
+            <h3> Build Your Own Pizza</h3>
+            <form onSubmit={onSubmit}>
                 {/* //////// SIZE DROPDOWN /////////// */}
+                <div>
+                    <h4>Choice of Size</h4>
+                    <p>Required</p>
+                </div>
                 <label>
-                    Choice of Size (required)
+                     (required)
                     <br></br>
                     <select name="size" value={values.size} onChange={onchange}>
                         <option value=''>Select Your Pizza Size</option>
@@ -27,50 +38,75 @@ export default function Form(props) {
                         <option value='large'>Large</option>
                     </select>
                 </label>
-                <br></br>
-                <br></br>
-                <br></br>
+                    <p>----------------------------------</p>
                 {/* //////// SAUCE RADIO BUTTONS  /////////// */}
-                <p>Choice of Sauce (required)</p>
+                <div>
+                    <h4>Choice of Sauce</h4>
+                    <p>Required</p>
+                </div>
                 <label> 
-                    <input name="sauce" type='radio' value='ogred' checked={values.sauce === 'ogred'} onChange={onchange}>
-                    </input>
+                    <input name="sauce" type='radio' value='ogred' checked={values.sauce === 'ogred'} onChange={onchange}></input>
                    Original Red: 
                 </label>
                 <br></br>
                 <label> 
-                    <br></br>
-                    <input name="sauce" type='radio' value='garlic' checked={values.sauce === 'garlic'} onChange={onchange}>
-                    </input>
+                    <input name="sauce" type='radio' value='garlic' checked={values.sauce === 'garlic'} onChange={onchange}></input>
                    Garlic Ranch: 
                 </label>
-                <br></br>
                 <label> 
                     <br></br>
-                    <input name="sauce" type='radio' value='bbq' checked={values.sauce === 'bbq'} onChange={onchange}>
-                    </input>
+                    <input name="sauce" type='radio' value='bbq' checked={values.sauce === 'bbq'} onChange={onchange}></input>
                   BBQ Sauce: 
                 </label>
-                <br></br>
                 <label> 
                     <br></br>
-                    <input name="sauce" type='radio' value='spinach' checked={values.sauce === 'spinach'} onChange={onchange}>
-                    </input>
+                    <input name="sauce" type='radio' value='spinach' checked={values.sauce === 'spinach'} onChange={onchange}></input>
                    Spinach Alfredo: 
                 </label>
+                    <p>----------------------------------</p>
+                {/* //////// TOPPINGS CHECKBOXES  /////////// */}
+                <div>
+                    <h4>Add Toppings</h4>
+                    <p>Choose up to 4</p>
+                </div>
+                <label>
+                    <input type='checkbox' name='pepperoni' onChange={onchange} checked={values.pepperoni}></input>
+                    Pepperoni
+                </label>
+                    <br></br>
+                    <label>
+                    <input type='checkbox' name='sausage' onChange={onchange} checked={values.sausage}></input>
+                    Sausage
+                </label>
+                    <br></br>
+                    <label>
+                    <input type='checkbox' name='caBacon' onChange={onchange} checked={values.caBacon}></input>
+                    Canadian Bacon
+                </label>
+                    <br></br>
+                    <label>
+                    <input type='checkbox' name='spicySausage' onChange={onchange} checked={values.spicySausage}></input>
+                    Spicy Sausage
+                </label>
+                    <p>----------------------------------</p>
+                {/* //////// SPECIAL INSTRUCTIONS TEXT BOX  /////////// */}
+                <div>
+                    <h4>Special Instructions</h4>
+                </div>
+                <label>
+                    <input name="instructions" type='text' value={values.instructions} onChange={onchange} placeholder="Anything else you'd like to add?"></input>
+                </label>
+                <p>----------------------------------</p>
+                <br></br>
+                <button disabled={disabled}> Add to Order     $17.99</button>
+
             </form>
         </div>
     )
 }
-//Shape of Form
-////DropDown Size
-//size: '' 
-////Radio Button Sauce
-//sauce: ''
-//Checkbox Toppings
-//top-pepperoni: false
-//top-sausage: false
-//top-caBacon: false
-//top-spicy-sausage: false
+// pepperoni: false,
+//   sausage: false,
+//   caBacon: false,
+//   spicySausage: false,
 ////Text Input for Special Instructions
 //instructions: ''
